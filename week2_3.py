@@ -4,20 +4,26 @@ def insertion_sort_asc(input_list, check_mult):
         if i % check_mult == 0:
             continue
         current = input_list[i]
-        j = i-1
+        if (i-1)%check_mult == 0:
+            j = i - 2
+        else:
+            j = i - 1
         while j >= 0 and input_list[j] > current:
-            if j % check_mult == 0:
-                pass
-            elif (j+1) % check_mult != 0:
+            if (j+1) % check_mult != 0:
                 input_list[j+1] = input_list[j]
             else:
                 input_list[j+2] = input_list[j]
-            j -= 1
+
+            if (j-1)%check_mult == 0:
+                j -= 2
+            else:
+                j -= 1
 
         if (j+1) % check_mult != 0:
             input_list[j+1] = current
         else:
             input_list[j+2] = current
+
     return input_list
 
 
@@ -32,8 +38,8 @@ def insertion_sort_desc(input_list, check_mult):
     return input_list
 
 
-INPUT = [31, 12, 21, 55, 14, 1, 51, 30, 2, 7]
-# INPUT = [5,4,3,2,1]
+INPUT = [31, 12, 21, 55, 22, 1, 51, 30, 2, 7]
+# INPUT = [7,8,9,7,6,5,4,3,2,1]
 check_mult = 3
 
 INPUT = insertion_sort_asc(INPUT, check_mult)
