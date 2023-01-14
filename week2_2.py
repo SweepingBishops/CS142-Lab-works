@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # qn a
 COURSES = ["b102", "c102", "cs142", "m102", "c102", "m102", "b102", "p102", "p102"]
+# The courses list is scanned through, every time a new element is scanned, it is
+# added to a list. If an element is seen the second time, it is removed from the 
+# list. The element left at the end is the required element.
 appearance = list()
 for course in COURSES:
     if course not in appearance:
