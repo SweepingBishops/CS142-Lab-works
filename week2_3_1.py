@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+# Both methods for this question basically do the same thing.
+# It first sorts the positions that are not a multiple, ignoring the 
+# multiples, and then sorts the rest ignoring the previously sorted
+# elements.
 input_list = [31,12,21,55,14,1,51,30,2,7]
 k = 3
 mult_indices = [i for i in range(len(input_list)) if (i+1)%k == 0]
