@@ -15,7 +15,7 @@ print(f"{appearance[0]} doesn't appear twice.")
 
 # qn b
 input_list = [3, 1, 2, 5, 4, 1, 5, 3, 2]
-n = 5
+n = max(input_list)
 sum_ = 0
 for num in input_list:
     sum_ += num
