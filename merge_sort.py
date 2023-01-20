@@ -24,6 +24,7 @@ def merge(left_list, right_list):
     return merged_list
 
 
-sorted_list = merge_sort([68,34,52,12,9,32,67,99])
-assert sorted_list == sorted([68,34,52,12,9,32,67,99])
-print(sorted_list)
+if __name__ == "__main__":
+    sorted_list = merge_sort([68,34,52,12,9,32,67,99])
+    assert sorted_list == sorted([68,34,52,12,9,32,67,99])
+    print(sorted_list)
