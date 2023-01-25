@@ -11,13 +11,20 @@ def evaluate(expression):
             level -= 1
         elif char in "+-":
             # If level is 1 it means that the operator is one bracket deep.
+            # That is the operator that we want to split the expression at.
             if level == 1:
                 left_expression = expression[1:index]
-                right_expression = expression[index+1:-1]
+                right_expression = expression[index + 1 : -1]
                 if char == "+":
-                    return int(evaluate(left_expression)) + int(evaluate(right_expression))
+                    return int(evaluate(left_expression)) + int(
+                        evaluate(right_expression)
+                    )
                 else:
-                    return int(evaluate(left_expression)) - int(evaluate(right_expression))
-#expression = list("((3+2)-((1-2)+5))")
+                    return int(evaluate(left_expression)) - int(
+                        evaluate(right_expression)
+                    )
+
+
+# expression = list("((3+2)-((1-2)+5))")
 expression = list("(1+(1+(1+(1-(1+1)))))")
 print(evaluate(expression))

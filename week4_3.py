@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 def bin_search(array, target, left_check, right_check):
-    '''Binary search function.
-       left_check and right_check should be initialised to 0
-       and len(array)-1 respectively.'''
+    """Binary search function.
+    left_check and right_check should be initialised to 0
+    and len(array)-1 respectively."""
     # Stop condition for the recursion is when the length of
     # the list we're considering becomes 1.
     if left_check == right_check:
