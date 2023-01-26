@@ -39,7 +39,10 @@ def insertion_sort(input_list):
 
 
 if __name__ == "__main__":
-    input_list = [22, 34, 12, 6, 12, 88, 56, 4]
-    insertion_sort(input_list)
-    assert input_list == sorted([22, 34, 12, 6, 12, 88, 56, 4])
-    print(input_list)
+    # input_list = [4,5,7,2,47,34,72,4]
+    # print(insert(input_list))
+    for i in range(10**3):
+        starter_list = [i for i in range(100)]
+        input_list = starter_list.copy()
+        insertion_sort(input_list)
+        assert input_list == sorted(starter_list)

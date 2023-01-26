@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from random import choice
 def find_median(array1, array2):
     # Stop condition for the recursion.
     if len(array1) == 2:
@@ -18,12 +19,14 @@ def find_median(array1, array2):
 
 
 if __name__ == "__main__":
-    array1 = [1, 4, 6, 18]
-    array2 = [2, 4, 7, 10]
+    choice_list = [i for i in range(100)]
+    for i in range(10**3):
+        array1 = [choice(choice_list) for i in range(20)]
+        array2 = [choice(choice_list) for i in range(20)]
 
-    median = find_median(array1, array2)
-    array3 = array1 + array2
-    array3.sort()
-    med = len(array3) // 2
-    assert array3[med], array3[med + 1] == median
-    print(median)
+        median = find_median(array1, array2)
+        array3 = array1 + array2
+        array3.sort()
+        med = len(array3) // 2
+        assert array3[med], array3[med + 1] == median
+        print(median)
