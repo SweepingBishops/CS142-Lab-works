@@ -25,6 +25,10 @@ def merge(left_list, right_list):
 
 
 if __name__ == "__main__":
-    sorted_list = merge_sort([68,34,52,12,9,32,67,99])
-    assert sorted_list == sorted([68,34,52,12,9,32,67,99])
-    print(sorted_list)
+    from random import shuffle
+    INPUT = [i for i in range(50)]
+    template = [i for i in range(50)]
+    for _ in range(10**3):
+        shuffle(INPUT)
+        INPUT = merge_sort(INPUT)
+        assert INPUT == template
