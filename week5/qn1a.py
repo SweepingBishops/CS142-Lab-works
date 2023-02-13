@@ -7,6 +7,7 @@ Input: [3, 34, 4, 12, 5, 2], t = 9, k = 2
 Output: True, there is a subset (4, 5) of size 2 with a sum of 9.
 '''
 def is_subset_sum(arr, target, length):
+    arr.sort()
     def _is_subset_sum(current, weight, current_subset):
         if weight + arr[current] > target:
             return False  # Since sorted array of positives
@@ -18,8 +19,8 @@ def is_subset_sum(arr, target, length):
 
         if current == len(arr) - 1:
             return False
-        elif len(current_subset) == length - 1:
-            return False
+        #elif len(current_subset) == length - 1:
+        #    return False
         else:
             return  _is_subset_sum(current+1, weight + arr[current], current_subset + [arr[current]]) \
         or _is_subset_sum(current+1, weight, current_subset)
@@ -27,8 +28,7 @@ def is_subset_sum(arr, target, length):
     return _is_subset_sum(0, 0, [])
 
 if __name__ == "__main__":
-    arr = [1,3,5,7,15,22,69]
-    target = 9
+    arr = [0,3,4,10,14,15,18]
+    target = 18
     length = 2
-    arr.sort()
     print(is_subset_sum(arr, target, length))
