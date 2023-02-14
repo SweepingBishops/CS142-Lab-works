@@ -6,48 +6,58 @@ using backtracking.
 '''
 
 def generate_configurations(n):
+    '''The function that generates all the possible configurations.'''
+    # There are no possible solution to the problem if n <= 2
     if n <= 2:
         return False
 
-    def place_queen(current_queens, rank):
-        if rank > n:
-            return current_queens
-        positions = []
-        for i in range(n):
-            if check_square(current_queens, (rank, i)):
-                positions.append(current_queens + [(rank, i)])
-        if positions:
-            return positions
-        else:
-            return False
+    configs = place_queen([], 0)
 
-
-    current_configs = place_queen([], 0)
-    for queen in range(1,n):
-        configs = list()
-        #print(f"Current configs: {current_configs}")
-        for current_queens in current_configs:
-            #print(f"Current queens: {current_queens}")
-            possible = place_queen(current_queens, queen)
+    for row in range(1,n):
+        current_configs = list()
+        for current_queens in configs:
+            possible = place_queen(current_queens, row)
             if possible:
-                configs.extend(possible)
-        #print(f"Configs: {configs}")
-        current_configs = configs.copy()
-    return current_configs
+                current_configs.extend(possible)
+        configs = current_configs
+    return configs
+
+
+def place_queen(current_queens, row):
+    '''
+    Takes the values of the queens that are already on the board
+    and tries to keep a queen on every column of the given row.
+    Returns the positions which are acceptable.
+    '''
+    if row > n:
+        return current_queens
+    positions = []
+    for i in range(n):
+        if check_square(current_queens, (row, i)):
+            positions.append(current_queens + [(row, i)])
+    if positions:
+        return positions
+    else:
+        return False
 
 
 def check_square(queens, square):
+    '''
+    Takes the values of the queens already on the board and returns
+    whether a queen can be kept on a given square or not.
+    '''
     if not queens:
         return True
-    #print(f"in check_sq: {queens}")
     for queen in queens:
         if square[0] == queen[0] or square[1] == queen[1]:
             return False
         if abs(queen[0] - square[0]) == abs(queen[1] - square[1]):
             return False
     return True
+
     
 def table(configs, n):
+    '''Just for pretty printing the boards.'''
     for config in configs:
         print("")
         for row in range(n):
