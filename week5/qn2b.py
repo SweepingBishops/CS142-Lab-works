@@ -47,7 +47,7 @@ def check_square(queens, square):
             return False
         elif abs(queen[0] - square[0]) == abs(queen[1] - square[1]):
             return False
-        elif abs(abs(queen[0] - square[0]) - abs(queen[1] - square[1])) == 1:
+        elif abs(abs(queen[0] - square[0]) * abs(queen[1] - square[1])) == 2:
             return False
     return True
 

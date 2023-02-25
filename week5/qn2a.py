@@ -70,5 +70,6 @@ def table(configs, n):
     print(len(configs))
 
 if __name__ == "__main__":
-    n=20
+    import sys
+    n=int(sys.argv[1])
     table(generate_configurations(n),n)
