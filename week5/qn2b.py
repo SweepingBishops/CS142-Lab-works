@@ -58,6 +58,4 @@ def check_square(queens, square):
 
 if __name__ == "__main__":
     n=5
-    #print(check_square([(1,2)], (4,1)))
-    breakpoint()
     print(find_max(n,0,[]))
