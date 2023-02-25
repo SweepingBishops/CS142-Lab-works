@@ -70,5 +70,5 @@ def table(configs, n):
     print(len(configs))
 
 if __name__ == "__main__":
-    n=8
+    n=20
     table(generate_configurations(n),n)
