@@ -1,17 +1,36 @@
 #!/usr/bin/env python
+curr_max = 0
+board = []
 
-def find_max(n, current_row, queens):
+def find_max(n):
     '''
     The function that generates all potential max configurations. And returns max.
     '''
     # For n <= 3 the answer is 1
     if n <= 3:
-        return 1
-    if current_row == n-1:
-        return len(queens)
+        global curr_max
+        curr_max = 1
+        return
+    
 
-    new_configs = place_queens(n, current_row, queens)
-    return max([find_max(n, current_row+1, pos) for pos in new_configs])
+    def _find_max(current_row, queens):
+        global curr_max
+        if current_row == n:
+            if len(queens) > curr_max:
+                curr_max = len(queens)
+                global board
+                board = queens
+        
+        new_configs = place_queens(n, current_row, queens)
+        for config in new_configs:
+            if len(config)+(n-current_row-1) > curr_max:
+                _find_max(current_row+1, config)
+            # num = _find_max(current_row+1, config)
+            # if num > curr_max:
+            #     curr_max = num
+            #     board = config
+
+    _find_max(0,[])
         
 
 
@@ -51,8 +70,20 @@ def check_square(queens, square):
             return False
     return True
 
+def table(config, n):
+    '''Just for pretty printing the boards.'''
+    print("")
+    for row in range(n):
+        for column in range(n):
+            if (row, column) in config:
+                print(f"|{chr(9819)}", end = "")
+            else:
+                print("| ", end = "")
+        print("|")
 
 if __name__ == "__main__":
     import sys
     n=int(sys.argv[1])
-    print(find_max(n,0,[]))
+    find_max(n)
+    table(board, n)
+    print(curr_max)
