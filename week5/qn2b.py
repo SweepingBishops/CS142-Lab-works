@@ -15,11 +15,14 @@ def find_max(n):
 
     def _find_max(current_row, queens):
         global curr_max
+        if curr_max == n:
+            return
         if current_row == n:
             if len(queens) > curr_max:
                 curr_max = len(queens)
                 global board
                 board = queens
+                return
         
         new_configs = place_queens(n, current_row, queens)
         for config in new_configs:
