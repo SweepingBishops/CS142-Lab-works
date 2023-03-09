@@ -57,8 +57,8 @@ def place_value(row, col):
     for val in range(1, N+1):
         if check_legal(val, row, col):
             board[row][col] = val
-            #pretty_print()
-            #sleep(0.5)
+            pretty_print()
+            sleep(0.05)
             place_value(row, col+1)
     else:
         board[row][col] = 0
@@ -66,7 +66,7 @@ def place_value(row, col):
 
 
 def pretty_print():
-    #print("\x1bc")
+    print("\x1bc")
     for row in range(N):
         print("|", end = "")
         for col in range(N):
