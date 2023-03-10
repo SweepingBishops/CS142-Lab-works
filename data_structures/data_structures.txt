@@ -1,0 +1,11 @@
+Arrays:
+    - Random accesss: any arbitraty element can be accessed 
+    - Static: size must be specified at inititialisation (but dynamic arrays exist)
+    - Ineffecient memory allocation.
+    - Inserting and deleteing elements in dynamic arrays are expensive (when changing the first elements).
+
+Linked list:
+    - Sequential access (access time will be Θ(i)).
+    - Efficient memory allocation.
+    - Dynamic (mostly).
+    - Inserting and deleting elements are expensive (when chaging the last elements).
