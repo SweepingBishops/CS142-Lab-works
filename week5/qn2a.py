@@ -8,8 +8,8 @@ using backtracking.
 def generate_configurations(n):
     '''The function that generates all the possible configurations.'''
     # There are no possible solution to the problem if n <= 2
-    if n <= 2:
-        return False
+    # if n <= 2:
+    #     return False
 
     configs = place_queen([], 0)
 

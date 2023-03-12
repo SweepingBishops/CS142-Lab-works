@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-
-
 def find_max(n):
     """
     The function that generates all potential max configurations. And returns max.
@@ -65,7 +63,7 @@ def check_square(queens, square):
             return False
         elif abs(queen[0] - square[0]) == abs(queen[1] - square[1]):
             return False
-        elif abs(abs(queen[0] - square[0]) * abs(queen[1] - square[1])) == 2:
+        elif abs(queen[0] - square[0]) * abs(queen[1] - square[1]) == 2:
             return False
     return True
 

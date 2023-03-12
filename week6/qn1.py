@@ -2,7 +2,6 @@
 from time import time, sleep
 N = 9  # N has to be a perfect square.
 n = int(N**0.5)
-impossibilities = [list() for _ in range(N)]
 board = [
     [0,0,0, 0,0,0, 2,0,0,],
     [0,8,0, 0,0,7, 0,9,0,],
@@ -40,8 +39,8 @@ def place_value(row, col):
         row += 1
 
     if row >=N:
-        pretty_print()
         end = time()
+        pretty_print()
         print(f"Time: {end-start}")
         exit()
 
@@ -51,7 +50,9 @@ def place_value(row, col):
             col = 0
             row += 1
         if row >=N:
+            end = time()
             pretty_print()
+            print(f"Time: {end-start}")
             exit()
 
     for val in range(1, N+1):
@@ -77,7 +78,6 @@ def pretty_print():
             print("\n")
         else:
             print("")
-    #print("*"*20)
 
 
 start = time()
