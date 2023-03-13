@@ -123,3 +123,21 @@ class LinkedList:
         values = [str(i) for i in self.get_data()]
         string = "\n".join(values)
         return string
+
+    def is_palindrome(self):
+        '''Checks if the alphabets of the nodes make a palindrome.'''
+        values = [i[0] for i in self.get_data()]
+        for index in range(len(values)//2):
+            if values[index] != values[len(values) - index - 1]:
+                return False
+        return True
+
+
+if __name__ == "__main__":
+    l_list = LinkedList()
+    alphas = list("aba")
+    nums = [i for i in range(len(alphas))]
+    nodes = [Node(a,n) for a,n in list(zip(alphas, nums))]
+    l_list.extend(nodes)
+    print(l_list)
+    print(f"Is a palindrome: {l_list.is_palindrome()}")
