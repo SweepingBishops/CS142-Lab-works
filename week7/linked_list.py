@@ -29,6 +29,12 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
+    def is_empty(self):
+        if self.head is None:
+            return True
+        else:
+            return False
+
     def append(self, node):
         '''Appends given node to the end of the LinkedList'''
         if not isinstance(node, Node):
@@ -144,23 +150,84 @@ class LinkedList:
             right_node = slow_node.next
         else:
             right_node = slow_node
-        try:
-            while left_node:
-                assert left_node.get_data()[0] == right_node.get_data()[0]
-                right_node = right_node.next
-                left_node.next, left_node, prev = prev, left_node.next, left_node
-        except AssertionError:
-            return False
-        else:
-            return True
+        palindrome = True
+        while left_node:
+            if left_node.alpha != right_node.alpha:
+                palindrome = False
+            right_node = right_node.next
+            left_node.next, left_node, prev = prev, left_node.next, left_node
+        return palindrome
 
+    def insertion_sort(self):
+        '''Sorts the LinkedList using the Insertion Sort algorithm'''
+        if self.is_empty():
+            return None
+        unsorted_head = self.head.next
+        last_sorted = self.head
+        while unsorted_head:
+            if last_sorted.num <= unsorted_head.num:
+                unsorted_head = unsorted_head.next
+                last_sorted = last_sorted.next
+                continue
+            last_sorted.next = unsorted_head.next
+            if self.head.num >  unsorted_head.num:
+                unsorted_head.next,unsorted_head, self.head = \
+                self.head, unsorted_head.next, unsorted_head
+                continue
+            node = self.head
+            while unsorted_head.num > node.next.num:
+                node = node.next
+            node.next, unsorted_head.next, unsorted_head = \
+            unsorted_head, node.next, unsorted_head.next
+
+    def merge_sort(self):
+        '''Sorts the LinkedList using the Merge Sort algorithm'''
+        if self.is_empty():
+            return
+        self.head = self._merge_sort("FIRST_CALL")
+
+    def _merge_sort(self, head):
+        if head == "FIRST_CALL":
+            head = self.head
+        if head.next == None:
+            return head
+        fast_node, slow_node = head.next, head
+        while fast_node and fast_node.next:
+            slow_node = slow_node.next
+            fast_node = fast_node.next.next
+        right_node = slow_node.next
+        slow_node.next = None
+        head = self._merge_sort(head)
+        right_node = self._merge_sort(right_node)
+        return self._merge(head, right_node)
+        
+    def _merge(self, left_node, right_node):
+        dummy_node = Node(None, None)
+        node = dummy_node
+        while left_node and right_node:
+            if left_node.num < right_node.num:
+                node.next = left_node
+                node = left_node
+                left_node = left_node.next
+            else:
+                node.next = right_node
+                node = right_node
+                right_node = right_node.next
+
+        if left_node:
+            node.next = left_node
+        elif right_node:
+            node.next = right_node
+        return dummy_node.next
 
 if __name__ == "__main__":
     l_list = LinkedList()
     alphas = list("abcdcba")
-    nums = [i for i in range(len(alphas))]
+    nums = [int(i) for i in "4320561"]
     nodes = [Node(a,n) for a,n in list(zip(alphas, nums))]
     l_list.extend(nodes)
     print(l_list)
     print(f"Is a palindrome: {l_list.is_palindrome()}")
-    #l_list.is_palindrome()
+    print("*"*10)
+    l_list.merge_sort()
+    print(l_list)
