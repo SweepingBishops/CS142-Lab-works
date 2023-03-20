@@ -14,14 +14,15 @@ class NotANodeError(Exception):
 
 
 class Node:
-    '''Node object for the LinkedList'''
+    """Node object for the LinkedList"""
+
     def __init__(self, alpha, num):
         self.next = None
         self.alpha = alpha
         self.num = num
-    
+
     def get_data(self):
-        '''Returns the data of the node. In a tuple if there are multiple.'''
+        """Returns the data of the node. In a tuple if there are multiple."""
         return self.alpha, self.num
 
 
@@ -36,7 +37,7 @@ class LinkedList:
             return False
 
     def append(self, node):
-        '''Appends given node to the end of the LinkedList'''
+        """Appends given node to the end of the LinkedList"""
         if not isinstance(node, Node):
             raise NotANodeError("The value given was not of type 'Node'.")
 
@@ -48,10 +49,10 @@ class LinkedList:
         while current_node.next is not None:
             current_node = current_node.next
 
-        current_node.next = node 
+        current_node.next = node
 
     def extend(self, node_iter):
-        '''Extends the LinkedList using the given iterator of Nodes.'''
+        """Extends the LinkedList using the given iterator of Nodes."""
         prev_node = None
         for index, node in enumerate(node_iter):
             if not isinstance(node, Node):
@@ -65,7 +66,7 @@ class LinkedList:
                 prev_node = node
 
     def prepend(self, *nodes):
-        '''Prepends given nodes to the start of the LinkedList'''
+        """Prepends given nodes to the start of the LinkedList"""
         for index, node in enumerate(nodes):
             if not isinstance(node, Node):
                 raise NotANodeError("The value given was not of type 'Node'.")
@@ -78,7 +79,7 @@ class LinkedList:
         self.head = nodes[0]
 
     def pop(self):
-        '''Removes the last node from the LinkedList and returns its value'''
+        """Removes the last node from the LinkedList and returns its value"""
         if self.head is None:
             raise IndexError("pop from empty LinkedList")
 
@@ -96,9 +97,9 @@ class LinkedList:
 
         prev_node.next = None
         return current_node.get_data()
-            
+
     def remove_from_beginning(self):
-        '''Removes the first node of the LinkedList and returns its value'''
+        """Removes the first node of the LinkedList and returns its value"""
         if self.head is None:
             raise IndexError("remove from emtpy LinkedList")
 
@@ -112,7 +113,7 @@ class LinkedList:
         return value
 
     def get_data(self):
-        '''Returns a list of the values of the nodes.'''
+        """Returns a list of the values of the nodes."""
         if self.head is None:
             raise IndexError("empty LinkedList")
 
@@ -125,13 +126,13 @@ class LinkedList:
         return data
 
     def __str__(self):
-        '''Prints the values of the nodes separated by a newline.'''
+        """Prints the values of the nodes separated by a newline."""
         values = [str(i) for i in self.get_data()]
         string = "\n".join(values)
         return string
 
     def is_palindrome(self):
-        '''Checks if the alphabets of the nodes make a palindrome.'''
+        """Checks if the alphabets of the nodes make a palindrome."""
         slow_node, fast_node = self.head, self.head
         prev = None
         flag = False
@@ -159,7 +160,7 @@ class LinkedList:
         return palindrome
 
     def insertion_sort(self):
-        '''Sorts the LinkedList using the Insertion Sort algorithm'''
+        """Sorts the LinkedList using the Insertion Sort algorithm"""
         if self.is_empty():
             return None
         unsorted_head = self.head.next
@@ -170,18 +171,24 @@ class LinkedList:
                 last_sorted = last_sorted.next
                 continue
             last_sorted.next = unsorted_head.next
-            if self.head.num >  unsorted_head.num:
-                unsorted_head.next,unsorted_head, self.head = \
-                self.head, unsorted_head.next, unsorted_head
+            if self.head.num > unsorted_head.num:
+                unsorted_head.next, unsorted_head, self.head = (
+                    self.head,
+                    unsorted_head.next,
+                    unsorted_head,
+                )
                 continue
             node = self.head
             while unsorted_head.num > node.next.num:
                 node = node.next
-            node.next, unsorted_head.next, unsorted_head = \
-            unsorted_head, node.next, unsorted_head.next
+            node.next, unsorted_head.next, unsorted_head = (
+                unsorted_head,
+                node.next,
+                unsorted_head.next,
+            )
 
     def merge_sort(self):
-        '''Sorts the LinkedList using the Merge Sort algorithm'''
+        """Sorts the LinkedList using the Merge Sort algorithm"""
         if self.is_empty():
             return
         self.head = self._merge_sort("FIRST_CALL")
@@ -200,7 +207,7 @@ class LinkedList:
         head = self._merge_sort(head)
         right_node = self._merge_sort(right_node)
         return self._merge(head, right_node)
-        
+
     def _merge(self, left_node, right_node):
         dummy_node = Node(None, None)
         node = dummy_node
@@ -220,14 +227,15 @@ class LinkedList:
             node.next = right_node
         return dummy_node.next
 
+
 if __name__ == "__main__":
     l_list = LinkedList()
     alphas = list("abcdcba")
     nums = [int(i) for i in "4320561"]
-    nodes = [Node(a,n) for a,n in list(zip(alphas, nums))]
+    nodes = [Node(a, n) for a, n in list(zip(alphas, nums))]
     l_list.extend(nodes)
     print(l_list)
     print(f"Is a palindrome: {l_list.is_palindrome()}")
-    print("*"*10)
+    print("*" * 10)
     l_list.merge_sort()
     print(l_list)
