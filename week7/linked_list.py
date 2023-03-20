@@ -126,18 +126,41 @@ class LinkedList:
 
     def is_palindrome(self):
         '''Checks if the alphabets of the nodes make a palindrome.'''
-        values = [i[0] for i in self.get_data()]
-        for index in range(len(values)//2):
-            if values[index] != values[len(values) - index - 1]:
-                return False
-        return True
+        slow_node, fast_node = self.head, self.head
+        prev = None
+        flag = False
+        while True:
+            if fast_node is None:
+                break
+            elif fast_node.next is None:
+                flag = True
+                break
+            fast_node = fast_node.next.next
+            slow_node.next, slow_node, prev = prev, slow_node.next, slow_node
+
+        left_node = prev
+        prev = slow_node
+        if flag:
+            right_node = slow_node.next
+        else:
+            right_node = slow_node
+        try:
+            while left_node:
+                assert left_node.get_data()[0] == right_node.get_data()[0]
+                right_node = right_node.next
+                left_node.next, left_node, prev = prev, left_node.next, left_node
+        except AssertionError:
+            return False
+        else:
+            return True
 
 
 if __name__ == "__main__":
     l_list = LinkedList()
-    alphas = list("aba")
+    alphas = list("abcdcba")
     nums = [i for i in range(len(alphas))]
     nodes = [Node(a,n) for a,n in list(zip(alphas, nums))]
     l_list.extend(nodes)
     print(l_list)
     print(f"Is a palindrome: {l_list.is_palindrome()}")
+    #l_list.is_palindrome()
