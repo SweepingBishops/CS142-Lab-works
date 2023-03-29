@@ -9,3 +9,21 @@ Linked list:
     - Efficient memory allocation.
     - Dynamic (mostly).
     - Inserting and deleting elements are expensive (when chaging the last elements).
+
+BTree:
+    - All operations:
+        * find 
+        * replace
+        * random insert
+        * random delete
+      Takes O(logn) time
+    - Number of child nodes is at most 2. 
+    - A node will contain a pointer to its parent and to its two children.
+    - Traversal(Inorder):
+        * left -> parent -> right
+    - Height of a node: Distance from root; root has height 0 and its child has height 1.
+    - Size of the tree: total number of nodes.
+    - Any sequence of length n can be represented using a BTree of height logn.
+    - Define an operation `rotation`, that changes the BTree such that it represents the same sequence.
+    - The height difference between the left subtree and the right subtree is called the nodes skewness.
+    - AVLTree: the skewness of a node is not of magnitude greater that 1.
