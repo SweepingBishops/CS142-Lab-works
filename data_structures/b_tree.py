@@ -18,24 +18,19 @@ class BTree:
     def from_list(arr: list) -> "BTree":
         '''Takes a list and return a balanced BTree object corresponding to the data.'''
         b_tree = BTree()
-        del arr[0]
-        arr.pop()
-        mid_index = find_primary_operator(arr)
+        mid_index = len(arr)//2
         b_tree.root = Node(arr[mid_index])
         def _recursion(parent, arr, side):
             if len(arr) == 0:
                 return
             elif len(arr) == 1:
                 if side == "left":
-                    b_tree._add(parent, Node(int(arr[0])), "left")
+                    b_tree._add(parent, Node(arr[0]), "left")
                 else:
-                    b_tree._add(parent, Node(int(arr[0])), "right")
+                    b_tree._add(parent, Node(arr[0]), "right")
                 return
-            else:
-                del arr[0]
-                arr.pop()
             
-            mid_index = find_primary_operator(arr)
+            mid_index = len(arr)//2
             node =  Node(arr[mid_index])
             if side == "left":
                 b_tree._add(parent, node, "left")
@@ -83,43 +78,20 @@ class BTree:
             height += 1
             parent = parent.parent
 
-def find_primary_operator(expression):
-    '''Takes an expression as a list as input, and returns
-    the index of the primary operator.'''
-    level = 0
-    for index, char in enumerate(expression):
-        if char == "(":
-            level += 1
-        elif char == ")":
-            level -= 1
-        elif char in "+-*/" and level == 0:
-            return index
-
-def solve(b_tree):
-    def _solve(node):
-        if node.left is None or node.right is None:
-            return node.data
-        left = _solve(node.left)
-        right = _solve(node.right)
-        
-        if node.data == "+":
-            return left+right
-        elif node.data == "-":
-            return left-right
-        elif node.data == "*":
-            return left*right
-        elif node.data == "/":
-            return left/right
-
-    return _solve(b_tree.root)
-
 
 if __name__ == "__main__":
-    expression = list("((3+5)/(4+5))")
-    print(expression)
-    b_tree = BTree.from_list(expression)
+    b_tree = BTree.from_list([1,1,2,3,4,5,6,7])
     print(b_tree.traverse())
     print(f"root: {b_tree.root.data}")
     print(f"root height: {b_tree.root.height}")
     print(f"tree size: {b_tree.root.subtree_size}")
-    print(f"Evaluated: {solve(b_tree)}")
+    print(f"test height: {b_tree.root.right.height}")
+    print(f"test size: {b_tree.root.right.subtree_size}")
+    b_tree._add(b_tree.root.right.right, Node(100), "right")
+    print(b_tree.traverse())
+    print(f"test size: {b_tree.root.right.subtree_size}")
+    print(f"test height: {b_tree.root.right.height}")
+    print(f"root height: {b_tree.root.height}")
+    print(f"tree size: {b_tree.root.subtree_size}")
+    expression = list("(1+(2+3))")
+    print(find_primary_operator(expression))

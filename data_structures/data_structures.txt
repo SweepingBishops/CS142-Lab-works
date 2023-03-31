@@ -27,3 +27,9 @@ BTree:
     - Define an operation `rotation`, that changes the BTree such that it represents the same sequence.
     - The height difference between the left subtree and the right subtree is called the nodes skewness.
     - AVLTree: the skewness of a node is not of magnitude greater that 1.
+
+Hashing:
+    - Load factor of a hashmap, α=n/m, where n is the size of the hashmap and m is the size of the hashtable.
+    - some hash fns:
+        * k mod m
+        * ((ak+b)mod p)mod m, where p is a prime number larger than n
