@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+import colorama
+colorama.init(autoreset=True)
+
 class Node:
     '''Node object for a BTree'''
     def __init__(self, data):
@@ -83,6 +86,41 @@ class BTree:
             height += 1
             parent = parent.parent
 
+    def __getitem__(self, index):
+        """Returns the ith node of the sequence."""
+        node = self.root
+        if index > self.root.subtree_size:
+            return
+        def _get_index(node, index):
+            if node.left is None and index == 1:
+                return node
+            if node.left.subtree_size>=index:
+                return _get_index(node.left, index)
+            elif node.left.subtree_size+1==index:
+                return node
+            else:
+                return _get_index(node.right, index-(node.left.subtree_size+1))
+        return _get_index(node,index+1)
+
+    def __setitem__(self, index, value):
+        """Changes the value of the ith node."""
+        self[index].data = value
+
+    def insert(self, index, data):
+        """Insert data at the index position."""
+        prev = self[index]
+        if prev.left is None:
+            self._add(prev, Node(data), "left")
+            return
+        prev = prev.left
+        while prev.right is not None:
+            prev = prev.right
+        self._add(prev, Node(data),"right")
+
+    def delete(self, index):
+        node = self[i]
+        successor = self[i+1]
+
 def find_primary_operator(expression):
     '''Takes an expression as a list as input, and returns
     the index of the primary operator.'''
@@ -115,11 +153,22 @@ def solve(b_tree):
 
 
 if __name__ == "__main__":
-    expression = list("((3+5)/(4+5))")
+    expression = "( ( 1 + 2 ) * ( ( 9 * 12 ) + 2 ) )".split()
     print(expression)
     b_tree = BTree.from_list(expression)
     print(b_tree.traverse())
     print(f"root: {b_tree.root.data}")
     print(f"root height: {b_tree.root.height}")
     print(f"tree size: {b_tree.root.subtree_size}")
-    print(f"Evaluated: {solve(b_tree)}")
+    print(colorama.Fore.GREEN+f"Evaluated: {solve(b_tree)}")
+    for i in range(b_tree.root.subtree_size):
+        print(b_tree[i].data,end=",")
+    print()
+
+    print(b_tree[10].data)
+    b_tree[b_tree.root.subtree_size-1]
+    b_tree[1]="-"
+    print(b_tree.traverse())
+    print(colorama.Fore.GREEN+f"Evaluated after edit: {solve(b_tree)}")
+    b_tree.insert(4,"test")
+    print(b_tree.traverse())
