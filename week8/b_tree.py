@@ -198,12 +198,14 @@ if __name__ == "__main__":
 
     b_tree[b_tree.root.subtree_size-1]
     b_tree[1]="-"
+    print("Edit:")
     print(b_tree.traverse())
     print(colorama.Fore.GREEN+f"Evaluated after edit: {solve(b_tree)}")
     print()
+    print("Delete:")
     b_tree.delete(1)
     print(b_tree.traverse())
     print()
+    print("Insert:")
     b_tree.insert(1,"/")
     print(b_tree.traverse())
-    print(colorama.Fore.GREEN+f"Evaluated after insert: {solve(b_tree)}")
