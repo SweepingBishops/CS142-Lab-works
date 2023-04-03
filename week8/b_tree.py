@@ -118,8 +118,38 @@ class BTree:
         self._add(prev, Node(data),"right")
 
     def delete(self, index):
-        node = self[i]
-        successor = self[i+1]
+        """Delete node at the ith index."""
+        node = self[index]
+        successor = self[index+1]
+        if node.left is None and node.right is None:
+            if node.parent.left is node:
+                node.parent.left = None
+            else:
+                node.parent.right = None
+            return
+        elif node.left is None:
+            node.right.parent = node.parent
+            if node.parent.left is node:
+                node.parent.left = node.right
+            else:
+                node.parent.right = node.right
+            return
+        elif node.right is None:
+            node.left.parent = node.parent
+            if node.parent.left is node:
+                node.parent.left = node.left
+            else:
+                node.parent.right = node.left
+            return
+
+        self._swap(node, successor)
+        self.delete(index+1)
+
+        
+    def _swap(self, node1,node2):
+        """Swaps the two given nodes."""
+        node1.data, node2.data = node2.data, node1.data
+
 
 def find_primary_operator(expression):
     '''Takes an expression as a list as input, and returns
@@ -161,14 +191,19 @@ if __name__ == "__main__":
     print(f"root height: {b_tree.root.height}")
     print(f"tree size: {b_tree.root.subtree_size}")
     print(colorama.Fore.GREEN+f"Evaluated: {solve(b_tree)}")
+    print("*"*10)
     for i in range(b_tree.root.subtree_size):
         print(b_tree[i].data,end=",")
-    print()
+    print("\n")
 
-    print(b_tree[10].data)
     b_tree[b_tree.root.subtree_size-1]
     b_tree[1]="-"
     print(b_tree.traverse())
     print(colorama.Fore.GREEN+f"Evaluated after edit: {solve(b_tree)}")
-    b_tree.insert(4,"test")
+    print()
+    b_tree.delete(1)
     print(b_tree.traverse())
+    print()
+    b_tree.insert(1,"/")
+    print(b_tree.traverse())
+    print(colorama.Fore.GREEN+f"Evaluated after insert: {solve(b_tree)}")
