@@ -58,8 +58,8 @@ def place_value(row, col):
     for val in range(1, N+1):
         if check_legal(val, row, col):
             board[row][col] = val
-            pretty_print()
-            sleep(0.05)
+            pretty_print()        #  Comment out these two lines to stop printing out each step.
+            sleep(0.05)           #
             place_value(row, col+1)
     else:
         board[row][col] = 0
